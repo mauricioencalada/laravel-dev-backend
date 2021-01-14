@@ -21,7 +21,7 @@ class QuestionController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Preguntas no encontradas',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -41,7 +41,7 @@ class QuestionController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Pregunta no encontrada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -99,7 +99,7 @@ class QuestionController extends Controller
                     'data' => null,
                     'msg' => [
                         'summary' => 'Pregunta no creada',
-                        'detail' => 'Intenta de nuevo',
+                        'detail' => 'Intente de nuevo',
                         'code' => '404',
                     ]], 404);
             }
@@ -150,7 +150,7 @@ class QuestionController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Pregunta no actualizada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -173,7 +173,7 @@ class QuestionController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Pregunta no eliminada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }

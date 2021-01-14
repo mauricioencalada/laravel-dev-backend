@@ -48,8 +48,8 @@ Route::get('report', function () {
 })->withoutMiddleware(['auth:api', 'check-attempts', 'check-status']);
 
 Route::group(['prefix' => 'reports'], function () {
-    Route::get('attendances', [AttendanceController::class, 'reportAttendances'])->withoutMiddleware(['auth:api', 'check-attempts', 'check-status']);;
-    Route::get('tasks', [AttendanceController::class, 'reportTasks'])->withoutMiddleware(['auth:api', 'check-attempts', 'check-status']);;
+    Route::get('attendances', [AttendanceController::class, 'reportAttendances']);
+    Route::get('tasks', [AttendanceController::class, 'reportTasks']);
 });
 
-Route::get('birthdate', [AttendanceController::class, 'getBirthdate']);
+Route::get('birthdates', [AttendanceController::class, 'getBirthdates']);

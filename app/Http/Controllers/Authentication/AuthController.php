@@ -37,7 +37,7 @@ class  AuthController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Usuario no encontrado',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -57,7 +57,7 @@ class  AuthController extends Controller
         return response()->json(['data' => $user->attempts,
             'msg' => [
                 'summary' => 'Oops! te quedan ' . $user->attempts . ' intentos',
-                'detail' => 'Vuleve a intentar',
+                'detail' => 'Vuleva a intentar',
                 'code' => '201',
             ]], 201);
     }
@@ -71,7 +71,7 @@ class  AuthController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Usuario no encontrado',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -123,7 +123,7 @@ class  AuthController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Usuario no encontrando',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -133,7 +133,7 @@ class  AuthController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'La contraseña actual no coincide con la enviada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '400'
                 ]], 400);
         }
@@ -158,7 +158,7 @@ class  AuthController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Usuario no encontrando',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -194,7 +194,7 @@ class  AuthController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Usuario no encontrando',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -234,7 +234,7 @@ class  AuthController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Usuario no encontrando',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -268,7 +268,7 @@ class  AuthController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Token no encontrado',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '400'
                 ]], 400);
         }
@@ -297,7 +297,7 @@ class  AuthController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Usuario no encontrado',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -323,7 +323,7 @@ class  AuthController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Token no encontrado',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '400'
                 ]], 400);
         }
@@ -352,7 +352,7 @@ class  AuthController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Usuario no encontrado',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -379,7 +379,7 @@ class  AuthController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Código no encontrado',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '400'
                 ]], 400);
         }
@@ -408,7 +408,7 @@ class  AuthController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Usuario no encontrado',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }

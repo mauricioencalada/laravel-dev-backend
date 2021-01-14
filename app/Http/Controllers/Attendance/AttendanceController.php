@@ -20,22 +20,22 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class AttendanceController extends Controller
 {
-
-    public function getBirthdate()
+// Obtiene las fechas de nacimiento
+    public function getBirthdates()
     {
-        $users = User::has('administrativeStaff')
+        $birthdates = User::has('administrativeStaff')
             ->orderByRaw("to_char(birthdate, 'MM-dd')")
             ->get();
 
         return response()->json([
-            'data' => $users,
+            'data' => $birthdates,
             'msg' => [
                 'summary' => 'success',
                 'detail' => '',
                 'code' => '200',
             ]], 200);
     }
-
+// obtiene las asistencias por instituto
     public function getCurrentDay(Request $request)
     {
         $users = User::with(['attendance' => function ($attendances) use ($request) {
@@ -144,7 +144,7 @@ class AttendanceController extends Controller
 
     public function getUserAttendances(Request $request)
     {
-        $user = User::findOrFail($request->user_id);
+        $user = User::findOrFail($request->user);
         $attendances = $user->attendances()
             ->with(['workdays' => function ($workdays) {
                 $workdays
@@ -156,7 +156,7 @@ class AttendanceController extends Controller
                         $type->with('parent');
                     }]);
             }])
-            ->where('institution_id', $request->institution_id)
+            ->where('institution_id', $request->institution)
             ->get();
         return response()->json([
             'data' => $attendances,
@@ -169,7 +169,7 @@ class AttendanceController extends Controller
 
     public function getUserHistoryAttendances(Request $request)
     {
-        $user = User::findOrFail($request->user_id);
+        $user = User::findOrFail($request->user);
 
         $attendances = $user->attendances()
             ->with(['workdays' => function ($workdays) {
@@ -183,7 +183,7 @@ class AttendanceController extends Controller
                     }]);
             }])
             ->whereBetween('date', [$request->start_date, $request->end_date])
-            ->where('institution_id', $request->institution_id)
+            ->where('institution_id', $request->institution)
             ->get();
         return response()->json([
             'data' => $attendances,
@@ -196,7 +196,7 @@ class AttendanceController extends Controller
 
     public function getUserCurrentDay(Request $request)
     {
-        $user = User::findOrFail($request->user_id);
+        $user = User::findOrFail($request->user);
         $attendances = $user->attendances()
             ->with(['workdays' => function ($workdays) {
                 $workdays->with('observations')->with('type');
@@ -208,7 +208,7 @@ class AttendanceController extends Controller
                     }]);
                 }]);
             }])
-            ->where('institution_id', $request->institution_id)
+            ->where('institution_id', $request->institution)
             ->where('date', Carbon::now())
             ->first();
         if (!$attendances) {
@@ -399,7 +399,7 @@ class AttendanceController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Asistencia no encontrada',
-                    'detail' => 'Debes iniciar primero tu jornada',
+                    'detail' => 'Debe iniciar primero la jornada',
                     'code' => '404',
                 ]], 404);
         }

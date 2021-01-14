@@ -17,7 +17,7 @@ class CheckRole
     public function handle(Request $request, Closure $next)
     {
 
-        $roles = $request->user()->roles()->where('institution_id',$request->institution_id)->get();
+        $roles = $request->user()->roles()->where('institution_id',$request->institution)->get();
 
         if (sizeof($roles) === 0) {
             return response()->json([

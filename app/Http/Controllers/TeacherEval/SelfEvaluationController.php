@@ -21,7 +21,7 @@ class SelfEvaluationController extends Controller
     {
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
         $data = $request->json()->all();
-        
+
         $dataAnswerQuestions = $data['answer_questions'];
         $teacher = Teacher::firstWhere('user_id', $request->user_id);// user_id viene de un interceptor
         $state = State::firstWhere('code', $catalogues['state']['type']['active']);
@@ -53,7 +53,7 @@ class SelfEvaluationController extends Controller
                 $selfResult->answerQuestion()->associate(AnswerQuestion::findOrFail($answerQuestion['id']));
                 $selfResult->save();
             }
-            
+
             //Obetenemos todas las autoEvaluaaciones de docencia segun el teacher , tipo de evalaucion y periodo.
             $selfTeachingResults= SelfResult::where('teacher_id', $teacher->id)
             ->whereBetween('created_at', [$startDatePeriod, $endDatePeriod])
@@ -71,10 +71,10 @@ class SelfEvaluationController extends Controller
 
             foreach ($selfTeachingResults as $selfTeachingResult) {
                 $result = json_decode(json_encode($selfTeachingResult));
-            
+
                 $resultsTotalValuesTeaching += (int)$result->answer_question->answer->value;
             }
-            
+
             if (sizeof($selfTeachingResults)>0) {
                 $resultsTotalTeaching  = $resultsTotalValuesTeaching/sizeof($selfTeachingResults);
                 $this->createEvaluation($teacher, $evaluationTypeTeaching, $resultsTotalTeaching, $schoolPeriod);
@@ -97,10 +97,10 @@ class SelfEvaluationController extends Controller
 
             foreach ($selfManagementResults as $selfManagementResult) {
                 $result = json_decode(json_encode($selfManagementResult));
-                    
+
                 $resultsTotalValuesManagement += (int)$result->answer_question->answer->value;
             }
-            
+
             if (sizeof($selfManagementResults)>0) {
                 $resultsTotalManagement  = $resultsTotalValuesManagement/sizeof($selfManagementResults);
                 $this->createEvaluation($teacher, $evaluationTypeManagement, $resultsTotalManagement, $schoolPeriod);
@@ -111,7 +111,7 @@ class SelfEvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'AutoEvaluación no creada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -127,7 +127,7 @@ class SelfEvaluationController extends Controller
     public function createEvaluation($teacher, $evaluationType, $result, $schoolPeriod)
     {
         $evaluation = new Evaluation();
-    
+
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
         $evaluation->result = $result;
         $evaluation->percentage = $evaluationType->percentage;

@@ -24,7 +24,7 @@ class EvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Evaluaciones no encontradas',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -44,7 +44,7 @@ class EvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Evaluación no encontrada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -86,7 +86,7 @@ class EvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Evaluación no creada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -130,7 +130,7 @@ class EvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Evaluador no actualizada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -152,13 +152,13 @@ class EvaluationController extends Controller
         $detailEvaluation = DetailEvaluation::Where('evaluation_id', $id)->first();
         $detailEvaluation->state_id = '2';
         $detailEvaluation->save();
-       
+
         if (!$evaluation) {
             return response()->json([
                 'data' => null,
                 'msg' => [
                     'summary' => 'Evaluación no eliminada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -198,7 +198,7 @@ class EvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Evaluación no creada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -238,7 +238,7 @@ class EvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Evaluación no creada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -272,7 +272,7 @@ class EvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'No hay autoEvaluación registrada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -300,7 +300,7 @@ class EvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'El docente no tiene evaluaciones',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }

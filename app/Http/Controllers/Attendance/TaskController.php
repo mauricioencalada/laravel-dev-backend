@@ -22,8 +22,8 @@ class TaskController extends Controller
         $data = $request->json()->all();
         $dataTask = $data['task'];
 
-        $user = User::findOrFail($request->user_id);
-        $attendance = $user->attendances()->where('date', $currentDate)->where('institution_id', $request->institution_id)->first();
+        $user = User::findOrFail($request->user);
+        $attendance = $user->attendances()->where('date', $currentDate)->where('institution_id', $request->institution)->first();
 
         if ($attendance) {
             $this->createOrUpdateTask($dataTask, $attendance);
@@ -47,7 +47,7 @@ class TaskController extends Controller
                     }]);
                 }]);
             }])
-                ->where('institution_id', $request->institution_id)
+                ->where('institution_id', $request->institution)
                 ->where('date', Carbon::now())
                 ->first(),
             'msg' => [
@@ -100,8 +100,8 @@ class TaskController extends Controller
     public function getTotalProcesses(Request $request)
     {
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
-        $role = Role::findOrFail($request->role_id);
-        $user = User::findOrFail($request->user_id);
+        $role = Role::findOrFail($request->role);
+        $user = User::findOrFail($request->user);
         $processes = $role->catalogues()->where('type', $catalogues['task']['process']['type'])->orderBy('name')->get();
         $attendances = $user->attendances()
             ->with(['workdays' => function ($workdays) {
@@ -114,7 +114,7 @@ class TaskController extends Controller
                         $type->with('parent');
                     }]);
             }])
-            ->where('institution_id', $request->institution_id)
+            ->where('institution_id', $request->institution)
 
             ->get();
 
@@ -147,7 +147,7 @@ class TaskController extends Controller
     public function getProcess(Request $request)
     {
         $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
-        $role = Role::findOrFail($request->role_id);
+        $role = Role::findOrFail($request->role);
         $process = $role->catalogues()->with(['children' => function ($children) {
             $children->orderBy('name');
         }])->where('type', $catalogues['task']['process']['type'])->orderBy('name')->get();

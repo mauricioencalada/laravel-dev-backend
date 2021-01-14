@@ -21,7 +21,7 @@ class EvaluationTypeController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Tipos de Evaluaciones no encontrando',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -76,18 +76,18 @@ class EvaluationTypeController extends Controller
                 'data' <> null ,
                 'msg' => [
                     'summary' => 'Datos Repetidos',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '400'
                 ]], 400);
             return response()->json([
                 'data' => null,
                 'msg' => [
                     'summary' => 'Tipo de Evaluación no encontrada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
-                
-                
+
+
         }
         return response()->json(['data' => $evaluationType,
             'msg' => [
@@ -129,7 +129,7 @@ class EvaluationTypeController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Tipo de Evaluacion no encontrada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }

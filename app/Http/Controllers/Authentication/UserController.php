@@ -22,10 +22,10 @@ class  UserController extends Controller
     public function getRoles(Request $request)
     {
         $data = $request->json()->all();
-        $user = User::findOrFail($data['user_id']);
+        $user = User::findOrFail($data['user']);
 
         $roles = $user->roles()
-            ->where('institution_id', $data['institution_id'])
+            ->where('institution_id', $data['institution'])
             ->get();
         return response()->json([
             'data' => $roles,
@@ -39,14 +39,14 @@ class  UserController extends Controller
     public function getPermissions(Request $request)
     {
         $data = $request->json()->all();
-        $role = Role::findOrFail($data['role_id']);
+        $role = Role::findOrFail($data['role']);
 
         $permissions = $role->permissions()
             ->with(['route' => function ($route) {
                 $route->with('module')->with('type')->with('image')->with('status');
             }])
             ->with('institution')
-            ->where('institution_id', $data['institution_id'])
+            ->where('institution_id', $data['institution'])
             ->get();
         return response()->json([
             'data' => $permissions,
@@ -242,7 +242,7 @@ class  UserController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Archivo no valido',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '400'
                 ]], 400);
         }

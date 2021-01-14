@@ -22,7 +22,7 @@ class AnswerController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Respuestas no encontradas',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -37,13 +37,13 @@ class AnswerController extends Controller
     public function show($id)
     {
         $answer = Answer::findOrFail($id);
-        
+
         if (!$answer) {
             return response()->json([
                 'data' => null,
                 'msg' => [
                     'summary' => 'Respuesta no encontrada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -64,7 +64,7 @@ class AnswerController extends Controller
         $dataStatus= $data['status'];
         $state = State::firstWhere('code', $catalogues['state']['type']['active']);
         $status = Catalogue::find($dataStatus['id']);
-       
+
         $existAnswer =  Answer::where('code',$dataAnswer['code'])->orWhere('name',$dataAnswer['name'])->orWhere('order',$dataAnswer['order'])->first();
         $answer= null;
         if (!$existAnswer) {
@@ -88,13 +88,13 @@ class AnswerController extends Controller
                 }
                 $answer->questions()->attach($questionsIds);
             }
-        
+
             if (!$answer) {
                 return response()->json([
                 'data' => null,
                 'msg' => [
                     'summary' => 'Respuestas no encontradas',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
             }
@@ -130,15 +130,15 @@ class AnswerController extends Controller
         $status = Catalogue::find($dataStatus['id']);
 
         $answer->status()->associate($status);
-        
+
         $answer->save();
-        
+
         if (!$answer) {
             return response()->json([
                 'data' => null,
                 'msg' => [
                     'summary' => 'Respuesta no encontrada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -162,7 +162,7 @@ class AnswerController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Respuesta no encontrada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }

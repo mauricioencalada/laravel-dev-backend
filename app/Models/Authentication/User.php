@@ -136,7 +136,7 @@ class User extends Authenticatable implements Auditable
 
     public function careers()
     {
-        return $this->morphToMany(Career::class, 'careerable' . 'ignug.careerables');
+        return $this->morphToMany(Career::class, 'careerable' , 'ignug.careerables');
     }
 
     public function institutions()

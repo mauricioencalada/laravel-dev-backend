@@ -13,3 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('passwd',function (){
+    return \Illuminate\Support\Facades\Hash::make('2100574595');
+});

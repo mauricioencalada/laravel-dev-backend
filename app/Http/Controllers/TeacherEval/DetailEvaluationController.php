@@ -30,7 +30,7 @@ class DetailEvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Detalle evaluación no encontradas',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -44,7 +44,7 @@ class DetailEvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Detalle evaluación no encontrada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -76,7 +76,7 @@ class DetailEvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Detalle evaluación no creada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -107,7 +107,7 @@ class DetailEvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Detalle evaluación no creada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }

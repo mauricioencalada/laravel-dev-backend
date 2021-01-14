@@ -19,7 +19,7 @@ use App\Models\Ignug\Teacher;
 
 class StudentEvaluationController extends Controller
 {
-    
+
     public function index(){
         $studentResult= StudentResult::all();
         if (sizeof($studentResult)=== 0) {
@@ -27,7 +27,7 @@ class StudentEvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Evaluacion de Estudiante a Docentes no encontradas',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -37,7 +37,7 @@ class StudentEvaluationController extends Controller
                 'detail' => 'Se consultó correctamente Evaluaciones de Estudiante a Docentes',
                 'code' => '200',
             ]], 200);
-    } 
+    }
 
     public function store(Request $request)
     {
@@ -46,19 +46,19 @@ class StudentEvaluationController extends Controller
     //    $dataStudentResult= $data['student_result'];
        $dataSubjectTeacher = $data['subject_teacher'];
        $dataAnswerQuestions = $data['answer_questions'];
-       //$dataUser= $data['user'];  
+       //$dataUser= $data['user'];
        $dataStudent= $data['student'];
 
         foreach($dataAnswerQuestions as $answerQuestion)
         {
-            
+
             $studentResult= new StudentResult();
             $state = State::where('code','1')->first();
             $subjectTeacher = SubjectTeacher::findOrFail($dataSubjectTeacher['id']);
             //$student = Student::firstWhere($dataUser['id']);
             $student = Student::findOrFail($dataStudent['id']);
-            
-            
+
+
             $studentResult->state()->associate($state);
             $studentResult->subjectTeacher()->associate($subjectTeacher);
             $studentResult->student()->associate($student);
@@ -66,13 +66,13 @@ class StudentEvaluationController extends Controller
             $studentResult->save();
 
         }
-        
+
         if (!$studentResult) {
             return response()->json([
                 'data' => null,
                 'msg' => [
                     'summary' => 'Evaluacion de Estudiante a Docentes no encontradas',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -87,7 +87,7 @@ class StudentEvaluationController extends Controller
 
      //Metodo para realizar los calculos y sacar la nota de docencia y gestion con el porcentaje aplicado.
     public function getResultStudent( $teacherId, $AnswerQuestions ){
-        
+
         $resultEvaluation = 0;
         foreach($AnswerQuestions as $eachAnswerQuestion){
 
@@ -96,45 +96,45 @@ class StudentEvaluationController extends Controller
             $evaluationTypeId = $answerQuestion->question()->first()->evaluation_type_id;
             $evaluationTypeParent = EvaluationType::where('id',$evaluationTypeId)->first();
             $percentage = $evaluationTypeParent->parent()->first()->percentage;
-            
+
             $resultEvaluation += ($value*$percentage)/100;
 
         }
         $this->createEvaluation($teacherId,$evaluationTypeId,$resultEvaluation);
     }
     public function createEvaluation($teacher,$schoolPeriod,$result,$evaluationType){
-        
+
             $evaluation = new Evaluation();
 
-            $evaluation->teacher()->associate($teacher);   
-            $evaluation->schoolPeriod()->associate($schoolPeriod);            
+            $evaluation->teacher()->associate($teacher);
+            $evaluation->schoolPeriod()->associate($schoolPeriod);
             $evaluation->result = $result;
             $state = State::where('code','1')->first();
-            $evaluation->state()->associate($state); 
-            $status = Catalogue::where('code','1')->where('type','STATUS')->first();      
-            $evaluation->status()->associate($status);         
+            $evaluation->state()->associate($state);
+            $status = Catalogue::where('code','1')->where('type','STATUS')->first();
+            $evaluation->status()->associate($status);
             $evaluation->evaluationType ()->associate($evaluationType);
             $evaluation->save();
-             
+
             return $evaluation;
-            
-        
+
+
     }
-    
+
 
     //Metodo para calcular.
     public function calculateResults( Request $request){
         //$schoolPeriod= SchoolPeriod::firstWhere('status_id',1);
         $status = Catalogue::where('code','1')->where('type','STATUS')->first()->id;
-        $schoolPeriod= SchoolPeriod::firstWhere('status_id',$status);      
+        $schoolPeriod= SchoolPeriod::firstWhere('status_id',$status);
         $teachers= Teacher::get();
-        
+
         $evaluationTypeDocencia = EvaluationType::firstWhere('code','5');  //docencia
         $evaluationTypeGestion = EvaluationType::firstWhere('code','6');  //gestion
         foreach($teachers as $teacher){
             $subjectTeachers = SubjectTeacher::where('school_period_id',$schoolPeriod->id)
             ->where('teacher_id',$teacher->id)
-            ->get();            
+            ->get();
 
             $resultadoDocencia=0;
             $resultadoGestion=0;
@@ -152,13 +152,13 @@ class StudentEvaluationController extends Controller
 
                 foreach($studentDocenciaResults as $studentDocenciaResult){
                     $result = json_decode(json_encode($studentDocenciaResult));
-                    
+
                     $totalDocencia += (int)$result->answer_question->answer->value;
-                  
+
                 }
 
                 if(sizeof($studentDocenciaResults)>0){
-                    $resultadoDocencia  += $totalDocencia/sizeof($studentDocenciaResults);                    
+                    $resultadoDocencia  += $totalDocencia/sizeof($studentDocenciaResults);
                 }
 
                 $studentGestionResults= StudentResult::where('subject_teacher_id',$subjectTeacher->id)
@@ -170,7 +170,7 @@ class StudentEvaluationController extends Controller
                     });
                 })
                 ->get();
-                
+
                 $totalGestion=0;
                 foreach($studentGestionResults as $studentGestionResult){
                     $result  = json_decode(json_encode($studentGestionResult));
@@ -178,7 +178,7 @@ class StudentEvaluationController extends Controller
                     $totalGestion += (int)$result->answer_question->answer->value;
                 }
                 if(sizeof($studentGestionResults)>0){
-                    $resultadoGestion += $totalGestion/sizeof($studentGestionResults);                    
+                    $resultadoGestion += $totalGestion/sizeof($studentGestionResults);
                 }
 
             }
@@ -194,11 +194,11 @@ class StudentEvaluationController extends Controller
                         $result=$resultadoDocencia/sizeof($subjectTeachers);
                         $evaluation= $this->createEvaluation($teacher,$schoolPeriod,$result,$evaluationTypeDocencia);
                     }
-                }else{            
+                }else{
                     $result=$resultadoDocencia/sizeof($subjectTeachers);
                     $evaluation= $this->createEvaluation($teacher,$schoolPeriod,$result,$evaluationTypeDocencia);
-                    
-                   
+
+
                 }
                 $evaluation= Evaluation::where('school_period_id', $schoolPeriod->id)
                 ->where('teacher_id',$teacher->id)
@@ -212,10 +212,10 @@ class StudentEvaluationController extends Controller
                         $evaluation= $this->createEvaluation($teacher,$schoolPeriod,$result,$evaluationTypeGestion);
                     }
 
-                }else{   
+                }else{
                     $result=$resultadoGestion/sizeof($subjectTeachers);
                     $evaluation=  $this->createEvaluation($teacher,$schoolPeriod,$result,$evaluationTypeGestion);
-                    
+
                 }
             }
 
@@ -225,7 +225,7 @@ class StudentEvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Evaluacion de Estudiante a Docentes no encontradas',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -236,7 +236,7 @@ class StudentEvaluationController extends Controller
                 'code' => '200',
             ]], 200);
 
-       
+
     }
     public function update(Request $request){
         return $request;

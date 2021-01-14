@@ -17,7 +17,7 @@ class CatalogueController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Catalogos no encontrando',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404'
                 ]], 404);
         }
@@ -27,7 +27,7 @@ class CatalogueController extends Controller
                 'detail' => 'Se consulto correctamente',
                 'code' => '200',
             ]], 200);
-        
+
     }
 
     public function show(Catalogue $catalogue)

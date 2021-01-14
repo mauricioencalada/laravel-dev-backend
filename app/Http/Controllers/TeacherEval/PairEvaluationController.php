@@ -20,7 +20,7 @@ class PairEvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Evaluaciones no encontradas',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -40,7 +40,7 @@ class PairEvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Evaluación par no encontrada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -88,7 +88,7 @@ class PairEvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Evaluación no creada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -137,7 +137,7 @@ class PairEvaluationController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Evaluación no creada',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }

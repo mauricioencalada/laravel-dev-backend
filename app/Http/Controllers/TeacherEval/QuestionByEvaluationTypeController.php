@@ -33,7 +33,7 @@ class QuestionByEvaluationTypeController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'No se han creado preguntas y respuestas para el formulario',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -73,7 +73,7 @@ class QuestionByEvaluationTypeController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'No se han creado preguntas y respuestas para el formulario',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -106,7 +106,7 @@ class QuestionByEvaluationTypeController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Preguntas no encontradas',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }
@@ -139,7 +139,7 @@ class QuestionByEvaluationTypeController extends Controller
                 'data' => null,
                 'msg' => [
                     'summary' => 'Preguntas no encontradas',
-                    'detail' => 'Intenta de nuevo',
+                    'detail' => 'Intente de nuevo',
                     'code' => '404',
                 ]], 404);
         }

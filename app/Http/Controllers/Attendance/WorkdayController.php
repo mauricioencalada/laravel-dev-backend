@@ -24,7 +24,7 @@ class WorkdayController extends Controller
         if (!$workday->observations) {
             $workday->observations = array();
         }
-        $user = User::findOrFail($request->user_id);
+        $user = User::findOrFail($request->user);
         $dataWorkday['observations'][0] = 'Motivo: ' . $dataWorkday['observations'][0];
         if ($dataWorkday['start_time'] != $workday->start_time) {
             array_push($dataWorkday['observations'], 'Hora inicio anterior: ' . $workday->start_time);
@@ -108,7 +108,7 @@ class WorkdayController extends Controller
 
         $data = $request->json()->all();
         $dataWorkday = $data['workday'];
-        $user = User::findOrFail($request->user_id);
+        $user = User::findOrFail($request->user);
 
         if (!$user) {
             return response()->json([
@@ -120,10 +120,10 @@ class WorkdayController extends Controller
                 ]], 404);
         }
 
-        $attendance = $user->attendances()->where('date', $currentDate)->where('institution_id', $request->institution_id)->first();
+        $attendance = $user->attendances()->where('date', $currentDate)->where('institution_id', $request->institution)->first();
 
         if (!$attendance) {
-            $attendance = $this->createAttendance($request->institution_id, $currentDate, $user);
+            $attendance = $this->createAttendance($request->institution, $currentDate, $user);
         }
         if ($dataWorkday['type']['code'] === $catalogues['workday']['type']['work']) {
             $works = $attendance->workdays()
@@ -195,7 +195,7 @@ class WorkdayController extends Controller
                     }]);
                 }]);
             }])
-                ->where('institution_id', $request->institution_id)
+                ->where('institution_id', $request->institution)
                 ->where('date', Carbon::now())
                 ->first(),
             'msg' => [

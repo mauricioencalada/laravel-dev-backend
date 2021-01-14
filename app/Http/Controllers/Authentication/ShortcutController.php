@@ -7,28 +7,18 @@ use App\Models\Authentication\Permission;
 use App\Models\Authentication\Shortcut;
 use App\Models\Authentication\User;
 use App\Models\Authentication\Role;
-use App\Models\Ignug\State;
 use Illuminate\Http\Request;
 
 class ShortcutController extends Controller
 {
     public function index(Request $request)
     {
-        $shortcuts = Permission::whereHas('shortcut', function ($shortcut) use ($request) {
-            $shortcut
-                ->where('role_id', $request->role_id)
-                ->where('user_id', $request->user_id);
-        })->with('shortcut')
-            ->with('route')
-            ->where('institution_id', $request->institution_id)
-            ->get();
-
         $shortcuts = Shortcut::
         with(['permission' => function ($permission) use ($request) {
-            $permission->with('route')->where('institution_id', $request->institution_id);
+            $permission->with('route')->where('institution_id', $request->institution);
         }])
-            ->where('role_id', $request->role_id)
-            ->where('user_id', $request->user_id)
+            ->where('role_id', $request->role)
+            ->where('user_id', $request->user)
             ->get();
         return response()->json([
             'data' => $shortcuts,
@@ -45,8 +35,8 @@ class ShortcutController extends Controller
         $dataShortcut = $data['shortcut'];
 
         $shortcut = new Shortcut();
-        $shortcut->user()->associate(User::findOrFail($request->user_id));
-        $shortcut->role()->associate(Role::findOrFail($request->role_id));
+        $shortcut->user()->associate(User::findOrFail($request->user));
+        $shortcut->role()->associate(Role::findOrFail($request->role));
         $shortcut->permission()->associate(Permission::findOrFail($dataShortcut['permission_id']));
         $shortcut->image = $dataShortcut['image'];
         $shortcut->save();
