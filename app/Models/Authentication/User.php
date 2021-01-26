@@ -163,4 +163,14 @@ class User extends Authenticatable implements Auditable
     {
         return $this->where('username', $username)->first();
     }
+
+    public function participant()
+    {
+        return $this->hasOne(Participant::class);
+    }
+
+    public function authorityCecy()
+    {
+        return $this->hasOne(authorityCecy::class);
+    }
 }

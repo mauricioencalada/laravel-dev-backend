@@ -25,7 +25,7 @@ class ImageController extends Controller
         ]);
 
         $user = User::findOrFail($request->user_id);
-        //$filePath = $request->avatar->storeAs('avatars', $user->username . '.png', 'public');
+        $filePath = $request->avatar->storeAs('avatars', $user->username . '.png', 'public');
 
         $avatar = $user->images()->where('type', Image::AVATAR_TYPE)->first();
         if (!$avatar) {

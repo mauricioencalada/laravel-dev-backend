@@ -3,9 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Ignug\CatalogueController;
+use App\Http\Controllers\Ignug\ClassroomController;
 use App\Http\Controllers\Ignug\ImageController;
 use App\Http\Controllers\Ignug\TeacherController;
 use App\Http\Controllers\Ignug\InstitutionController;
+use App\Http\Controllers\Ignug\StateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +20,11 @@ use App\Http\Controllers\Ignug\InstitutionController;
 |
 */
 Route::apiResource('catalogues', CatalogueController::class);
+Route::apiResource('classroom', ClassroomController::class);
+
+
+
+Route::post('logo', [ClassroomController::class,'upload']);
 
 Route::group(['prefix' => 'images'], function () {
     Route::get('avatars', [ImageController::class, 'getAvatar']);
