@@ -11,11 +11,12 @@ class CreateClassroomsTable extends Migration
     {
         Schema::connection('pgsql-ignug')->create('classrooms', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 100);
-            $table->string('name', 500);
-            $table->foreignId('type_id')->constrained('catalogues');
-            $table->string('icon', 200)->nullable();
-            $table->foreignId('state_id');
+            $table->string('code', 100)->comment('codigo de aula');
+            $table->string('name', 500)->comment('nombre  del aula');
+            $table->integer('capacity')->comment('capacidad del aula numerico');
+            $table->foreignId('type_id')->constrained('catalogues')->comment('tipo del aula ,oficina,laboratorio,aulasetc');
+            $table->string('icon', 200)->nullable()->comment('icono del aula');
+            $table->foreignId('state_id')->comment('estado del aula active o disable ');
             $table->timestamps();
         });
     }

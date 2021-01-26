@@ -11,10 +11,16 @@ class CatalogueController extends Controller
 {
     public function index(Request $request)
     {
-        return response()->json([
+
+        $catalogue = Catalogue::all(); 
+        
+        return response()->json( $catalogue);
+
+
+       /* return response()->json([
             'data' => [
                 'catalogues' => Catalogue::where('type',$request->type)->get()
-            ]]);
+            ]]);*/
     }
 
     public function show(Catalogue $catalogue)

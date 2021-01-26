@@ -17,6 +17,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use OwenIt\Auditing\Contracts\Auditable;
+use App\Models\Cecy\Participant;
+use App\Models\Cecy\Authority as AuthorityCecy;
+
 
 
 class User extends Authenticatable implements Auditable
@@ -161,5 +164,15 @@ class User extends Authenticatable implements Auditable
     public function findForPassport($username)
     {
         return $this->where('username', $username)->first();
+    }
+
+    public function participant()
+    {
+        return $this->hasOne(Participant::class);
+    }
+
+    public function authorityCecy()
+    {
+        return $this->hasOne(authorityCecy::class);
     }
 }

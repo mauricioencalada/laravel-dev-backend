@@ -19,6 +19,10 @@ use App\Models\Ignug\Setting;
 use App\Models\Ignug\Teacher;
 use Illuminate\Database\Seeder;
 use App\Models\Ignug\State;
+use App\Models\Ignug\Image;
+use App\Models\Ignug\SchoolPeriod;
+use App\Models\Ignug\Classroom;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -57,6 +61,7 @@ class DatabaseSeeder extends Seeder
         $this->createBloodTypeCatalogues();
         $this->createSexCatalogues();
         $this->createGenderCatalogues();
+        
 
         $systemStatus = Catalogue::factory()->create([
                 'code' => $catalogues['system']['status']['available'],
@@ -120,9 +125,11 @@ class DatabaseSeeder extends Seeder
             'order' => 2,
         ]);
 
-        // Modalidades y tipos de carrera
+        // Modalidades , tipos de carrera, tipo de classroom y tipo de periodo academico 
         $this->createCareerModality();
         $this->createCareerType();
+        $this->createClassroomType();
+        $this->createSchoolPeriodType();
 
         // Institutos y carreras
         $this->createInstitutionsCareers();
@@ -143,6 +150,78 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AttendanceSeeder::class,
         ]);
+
+        Classroom::factory()->create([
+            'code' => '1',
+            'name' => 'Laboratorio de ciencias',
+            'type_id' => 37,
+            'capacity'=> 20,
+            'icon'=> 'Laboratorio',
+            'state_id'=>1
+        ]);
+        Classroom::factory()->create([
+            'code' => '1',
+            'name' => 'Aula normal',
+            'type_id' => 39,
+            'capacity'=> 20,
+            'icon'=> 'Laboratorio',
+            'state_id'=>1
+        ]);
+        Classroom::factory()->create([
+            'code' => '2',
+            'name' => 'Oficina Clasica',
+            'type_id' => 38,
+            'capacity'=> 3,
+            'icon'=> 'oficina',
+            'state_id'=>1
+        ]);
+
+         //Imagen
+         Image::factory()->create([
+            'code' => '1',
+            'imageable_type'=>'null',
+            'imageable_id'=>1,
+            'name' => 'imagen',
+            'uri'=>'teststagsbdahbdhasdbasdadadsasdasdasdasdasd',
+            'extension'=>'que es esto',
+            'description'=>'imagen',
+            'type'=>'imagen',
+            'state_id' => 1,
+        ]);
+
+         // school_periods
+         SchoolPeriod::factory()->create([
+            'code' => "sh1 ",
+            'name' => "periodo 1",
+            'start_date' => "2020-08-28",
+            'end_date' => "2020-08-28",
+            'ordinary_start_date' => "2020-08-28",
+            'ordinary_end_date' => "2020-08-28",
+            'extraordinary_start_date' => "2020-08-28",
+            'extraordinary_end_date' => "2020-08-28",
+            'especial_start_date' => "2020-08-28",
+            'especial_end_date' => "2020-08-28",
+            "status_id" => 41,
+            "state_id" => 1,
+        ]);
+
+        SchoolPeriod::factory()->create([
+            'code' => "sh2  ",
+            'name' => "periodo 2",
+            'start_date' => "2020-08-28",
+            'end_date' => "2020-08-28",
+            'ordinary_start_date' => "2020-08-28",
+            'ordinary_end_date' => "2020-08-28",
+            'extraordinary_start_date' => "2020-08-28",
+            'extraordinary_end_date' => "2020-08-28",
+            'especial_start_date' => "2020-08-28",
+            'especial_end_date' => "2020-08-28",
+            "status_id" => 40,
+            "state_id" => 1,
+        ]);
+
+        
+
     }
 
     private function createRoles()
@@ -204,6 +283,11 @@ class DatabaseSeeder extends Seeder
         Role::factory()->create([
             'code' => $catalogues['role']['name']['administrative_coordinator'],
             'name' => 'COORD. ADMINISTRATIVO',
+            'system_id' => $systemIgnug->id
+        ]);
+        Role::factory()->create([
+            'code' => $catalogues['role']['name']['student'],
+            'name' => 'PARTICIPANTE',
             'system_id' => $systemIgnug->id
         ]);
     }
@@ -634,7 +718,44 @@ class DatabaseSeeder extends Seeder
             'type' => $catalogues['career']['type']['type']
         ]);
     }
+
+    private function createClassroomType()
+    {
+            $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
+        Catalogue::factory()->create([
+            'code' => $catalogues['career']['type']['technology'],
+            'name' => 'Laboratorio',
+            'type' => $catalogues['career']['type']['type']
+        ]);
+        Catalogue::factory()->create([
+            'code' => $catalogues['career']['type']['technology'],
+            'name' => 'Oficina',
+            'type' => $catalogues['career']['type']['type']
+        ]);
+        Catalogue::factory()->create([
+            'code' => $catalogues['career']['type']['technology'],
+            'name' => 'Aula',
+            'type' => $catalogues['career']['type']['type']
+        ]);
+    }
+    private function createSchoolPeriodType()
+    {
+            $catalogues = json_decode(file_get_contents(storage_path() . "/catalogues.json"), true);
+        Catalogue::factory()->create([
+            'code' => $catalogues['career']['type']['technology'],
+            'name' => 'Abierto',
+            'type' => $catalogues['career']['type']['type']
+        ]);
+        Catalogue::factory()->create([
+            'code' => $catalogues['career']['type']['technology'],
+            'name' => 'Cerrado',
+            'type' => $catalogues['career']['type']['type']
+        ]);
+        
+    }
 }
+
+
 /*
             drop schema if exists authentication cascade;
             drop schema if exists attendance cascade;
